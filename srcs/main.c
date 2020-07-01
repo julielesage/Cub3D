@@ -63,12 +63,30 @@
 // 2 = obstacle
 // N = position de la caméra regardant vers le Nord
 
+#include "cub3D.h"
+
+int verify_argvs(int argc, char **argv)
+{
+  if (argc == 3 && (my_strcmp(argc[1], "--save") == 0) && (extensionCheck(argv[1], "cub") == 0)
+    //initialisation de toutes les structures avec image int bpm 1 pour un enregistrement de la première image à apparaitre
+  else if (argc == 2 && (extensionCheck(argv[1], "cub") == 0)
+    //same initialisation de toutes les structures mais avec image int bpm 0
+  else {
+    write(2, "Error\nInvalid arguments can not be taken", 56);
+    return (1);
+  }
+  return (0);
+}
+
 int main(int argc, char **argv)
 {
-  //if nb argc = 3 et arg = cub c'est ok on initialise
+  if (verify_argvs(argc, argv) == 1)
+    return (1);
+
   //parsingInfos() gérer les espaces et lignes vides avant la map, tout peut etre dans n'importe quel ordre avant la map
   //check si fuite dans map, si oui renvoyer une erreur
   // check si only 0, 1, 2 et N ou W ou E ou S 1 seule fois dans la map sinon erreur
   // erreur
-  else write(2, "Error\nYour map configuration can not be taken as it is.", 56);
+  else
+    write(2, "Error\nInvalid arguments can not be taken", 56);
 }
