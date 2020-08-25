@@ -63,30 +63,37 @@
 // 2 = obstacle
 // N = position de la caméra regardant vers le Nord
 
-#include "cub3D.h"
+// SANS MAKEFILE :
+// gcc main.c first.c ArgvChecks.c
+// ./a.out truc.cub --save
 
-int verify_argvs(int argc, char **argv)
+#include "cub3d.h"
+
+void	ft_init(char *cub, int save)
 {
-  if (argc == 3 && (my_strcmp(argc[1], "--save") == 0) && (extensionCheck(argv[1], "cub") == 0)
-    //initialisation de toutes les structures avec image int bpm 1 pour un enregistrement de la première image à apparaitre
-  else if (argc == 2 && (extensionCheck(argv[1], "cub") == 0)
-    //same initialisation de toutes les structures mais avec image int bpm 0
-  else {
-    write(2, "Error\nInvalid arguments can not be taken", 56);
-    return (1);
-  }
-  return (0);
+  t_all s;
+  if (save == 1)
+	write(1,"saved\n", 6);
+  else
+    write(1,"not saved\n", 10);
+  if (ft_parse_cub(&s, cub) == 1)
+    return (ft_close(&s, 0);;
 }
 
-int main(int argc, char **argv)
+int		verify_argvs(int argc, char **argv)
 {
-  if (verify_argvs(argc, argv) == 1)
-    return (1);
-
-  //parsingInfos() gérer les espaces et lignes vides avant la map, tout peut etre dans n'importe quel ordre avant la map
-  //check si fuite dans map, si oui renvoyer une erreur
-  // check si only 0, 1, 2 et N ou W ou E ou S 1 seule fois dans la map sinon erreur
-  // erreur
+  if (argc == 3 && (my_strcmp(argc[1], "--save") == 0) && (extensionCheck(argv[1], "cub") == 0)
+    //initialisation de toutes les structures av     i         int bpm 1 pour un enregistrement de la première image à apparaitre
+    ft_init(argv[1], 1);
+  else if (argc == 2 && (extensionCheck(argv[1], "cub") == 0)
+	//same initialisation de toutes les structures mais avec image int bpm 0
+    ft_init(argv[1], 0);
   else
-    write(2, "Error\nInvalid arguments can not be taken", 56);
+    return (1);
+}
+
+int		main(int argc, char **argv)
+{
+	if (verify_argvs(argc, argv) == 1)
+		write(2,"Error\nVerified: invalid arguments can not be taken", 56);
 }
