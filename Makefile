@@ -1,53 +1,37 @@
 NAME = cub3D
 
-CC = clang
-CFLAGS = -Wall -Wextra -Werror
-# +03 ?
-
-MLX = mlxopengl
-LXFLAGS = -lmlx -framework OpenGL -framework AppKit
-
 HEADER = cub3d.h
 
-# B_HEADER = cub3d_bonus.h
+CC = clang
+CFLAGS = -O3 -Wall -Wextra -Werror -I $(HEADER)
 
-SRCS = 	main.c\ 
-				first.c\
-				ArgvChecks.c\
-
-
-FIL = $(addsuffix .c, $(addprefix srcs/, $(SRCS)))
-
-OBJ = $(FIL:.c=.o)
-
-# BIN = $(addsuffix .o, $(SRCS))
+#MLX = minilibx_opengl
+#LXFLAGS = -lmlx -framework OpenGL -framework AppKit
 
 # B_HEADER = cub3d_bonus.h
 
-# B_SRC = screen_row \
-# 	sprite_draw \
-# 	key_more \
-# 	weapons \
-# 	enemy \
-# 	door \
-# 	hud \
+SRCS = src/main.c \
+		src/checks/argvcheck.c \
+		src/libft/basics.c \
+		src/libft/get_next_line.c \
+		src/utils/errors.c \
 
-# B_FIL = $(addsuffix _bonus.c, $(addprefix bonus/, $(SRC) $(B_SRC)))
+#OBJS = $(SRCS.c=.o)
 
-# B_OBJ = $(B_FIL:.c=.o)
-
-# B_BIN = $(addsuffix _bonus.o, $(SRC) $(B_SRC))
+OBJS: $(SRCS)
+	$(CC) $(CFLAGS) $(SRCS) $(HEADER)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJS) $(SRCS)
 	@echo "\n\033[0;33mCompiling..."
-	$(CC) -o $(NAME) -L $(MLX) $(LXFLAGS) $(OBJ)
+	$(CC)  $(CFLAGS) -c $(SRCS) $(OBJS)
 	@echo "\033[0m"
+
 
 clean:
 	@echo "\033[0;31mCleaning..."
-	rm -rf $(OBJ) 
+	rm -f $(OBJS)
 	# + $(B_OBJ)
 	# + rm -f bitmap.bmp
 	@echo "\033[0m"
@@ -59,15 +43,15 @@ fclean: clean
 
 re: fclean all
 
-# bonus: fclean $(B_OBJ)
-# 	@echo "\n\033[0;32mCompiling bonus..."
-# 	$(CC) -o $(NAME) -L $(MLX) $(LXFLAGS) $(B_OBJ)
-# 	@echo "\033[0m"
+test1: $(NAME) maps/test1.cub
+# =====> no input file
 
-# 	./$(NAME)
+test2: clean
+	./$(NAME) maps/test1.cub
+# ====> make: ./cub3D: No such file or directory
 
-# test: re
-# 	./$(NAME) maps/map.cub
+test3: $(CC) $(CFLAGS) $(SCRS)
+# ====> No rule to make target `clang', needed by `test3'.  Stop.
 
 # sqr: re
 # 	./$(NAME) maps/sqr.cub
@@ -82,9 +66,11 @@ re: fclean all
 # 	./$(NAME) maps/inv.cub
 
 norm:
-	@norminette $(FIL) $(HEADER)
+	@norminette $(SRCS) $(HEADER)
 # + $(B_FIL) bonus/$(B_HEADER)
 	@echo "\033[1;34mcub3d\t\033[1;33mNorminette\t\033[0;32m[OK]\033[0m"
 
 .PHONY: all clean fclean re norm
 # + bonus test sqr bmp err inv ?
+# makefile error *** commands commence before first target. stop 
+# ===> manque un \ ou y'a une espace ou un saut à la ligne à la ligne indiquée

@@ -67,33 +67,25 @@
 // gcc main.c first.c ArgvChecks.c
 // ./a.out truc.cub --save
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	ft_init(char *cub, int save)
 {
-  t_all s;
-  if (save == 1)
-	write(1,"saved\n", 6);
-  else
-    write(1,"not saved\n", 10);
-  if (ft_parse_cub(&s, cub) == 1)
-    return (ft_close(&s, 0);;
-}
-
-int		verify_argvs(int argc, char **argv)
-{
-  if (argc == 3 && (my_strcmp(argc[1], "--save") == 0) && (extensionCheck(argv[1], "cub") == 0)
-    //initialisation de toutes les structures av     i         int bpm 1 pour un enregistrement de la première image à apparaitre
-    ft_init(argv[1], 1);
-  else if (argc == 2 && (extensionCheck(argv[1], "cub") == 0)
-	//same initialisation de toutes les structures mais avec image int bpm 0
-    ft_init(argv[1], 0);
-  else
-    return (1);
+	t_all s;
+	if (save == 1)
+		write(1,"saved\n", 6);
+	else
+		write(1,"not saved\n", 10);
+	if (ft_parse_cub(&s, cub) == 1) {
+		printf("mauvais parsing");
+		freeAndClose(0);
+	}
 }
 
 int		main(int argc, char **argv)
 {
 	if (verify_argvs(argc, argv) == 1)
 		write(2,"Error\nVerified: invalid arguments can not be taken", 56);
+	return 0;
+
 }

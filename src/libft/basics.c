@@ -1,6 +1,6 @@
-#include "cub3d.h"
+#include "../../cub3d.h"
 
-char	*substr(char *s1, unsigned int start, size_t len)
+char	*my_substr(char *s1, unsigned int start, size_t len)
 {
 	unsigned int	i;
 	char			*dst;
@@ -12,7 +12,7 @@ char	*substr(char *s1, unsigned int start, size_t len)
 		return (NULL);
 	while (s1[start] && i < len)
 	{
-		dst[i] = s[start];
+		dst[i] = s1[start];
 		i++;
 		start++;
 	}
@@ -20,7 +20,7 @@ char	*substr(char *s1, unsigned int start, size_t len)
 	return dst;
 }
 
-char	*strndup(char *s1, int n)
+char	*my_strndup(char *s1, int n)
 {
 	int		i;
 	char	*copy;
@@ -37,7 +37,7 @@ char	*strndup(char *s1, int n)
 	return copy;
 }
 
-char	*str_join(char *s1, char *s2)
+char	*my_str_join(char *s1, char *s2)
 {
 	char	*dst;
 	size_t	i;
@@ -46,7 +46,7 @@ char	*str_join(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	totalsize = strlen(s1) + strlen(s2) + 1;
+	totalsize = my_strlen(s1) + my_strlen(s2) + 1;
 	if (!(dst = (char *)malloc(totalsize * sizeof(char))))
 		return (NULL);
 	while (s1 && s1[i] != '\0')
@@ -64,21 +64,21 @@ char	*str_join(char *s1, char *s2)
 	return dst;
 }
 
-char	ft_strchr(char *left, char c)
+char	*my_strchr(char *left, char c)
 {
 	int		i;
 
 	i = 0;
 	if (left == NULL)
 		return (NULL);
-	while (left[i] !== "\O")
+	while (left[i] != '\0')
 	{
 		if (left[i] == c)
-			return (&left[i + 1])
+			return (&left[i + 1]);
 		else i++;
 	}
-	if (c == "\0")
-		return (&left[i])
+	if (c == '\0')
+		return (&left[i]);
 	return NULL;
 }
 
@@ -97,4 +97,22 @@ int		my_strcmp(char *s1, char *s2)
   return (*s1 - *s2);
 }
 
+size_t	my_strlen(char *str)
+{
+	size_t	count;
+	int		i;
 
+	count = 0;
+	i = 0;
+	if (str == NULL)
+		return (count);
+	else
+	{
+		while (str[i] != '\0')
+		{
+			count++;
+			i++;
+		}
+	}
+	return (count);
+}

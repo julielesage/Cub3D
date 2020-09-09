@@ -1,4 +1,12 @@
-#include "cub3d.h"
+#include "../../cub3d.h"
+
+int		freeAndClose(int win)
+{
+//free tous les s 
+	win = 0;
+	exit(0);
+	return 1;
+}
 
 int		ft_write_error(int err)
 {
