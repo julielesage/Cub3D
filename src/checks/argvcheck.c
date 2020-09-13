@@ -2,8 +2,8 @@
 
 int		verify_line(t_all *s, char **line)
 {
-	write(1, s, 12);
-	write(1, line, 13);
+	if (!s || !line)
+		return 1;
 	return 8;
 }
 
@@ -50,7 +50,7 @@ int		extensionCheck(char *argv, char *ext)
 
 int		verify_argvs(int argc, char ** argv)
 {
-	if (argc == 3 && my_strcmp(argv[1], "--save") == 0 && extensionCheck(argv[1], "cub") == 0) {
+	if (argc == 3 && extensionCheck(argv[1], "cub") == 0 && my_strcmp(argv[2], "--save") == 0)  {
 		//initiation de toutes les structures avec enregistrement première image
 		ft_init(argv[1], 1);
 		return 0;

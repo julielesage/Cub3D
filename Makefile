@@ -3,7 +3,8 @@ NAME = cub3D
 HEADER = cub3d.h
 
 CC = clang
-CFLAGS = -O3 -Wall -Wextra -Werror -I $(HEADER)
+CFLAGS = -Wall -Wextra -Werror -I $(HEADER)
+RM = rm -f
 
 #MLX = minilibx_opengl
 #LXFLAGS = -lmlx -framework OpenGL -framework AppKit
@@ -16,7 +17,7 @@ SRCS = src/main.c \
 		src/libft/get_next_line.c \
 		src/utils/errors.c \
 
-#OBJS = $(SRCS.c=.o)
+OBJS = $(SRCS.c=.o)
 
 OBJS: $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) $(HEADER)
@@ -24,6 +25,8 @@ OBJS: $(SRCS)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(SRCS)
+	@echo "\n Removing objects"
+	$(RM) *.o
 	@echo "\n\033[0;33mCompiling..."
 	$(CC)  $(CFLAGS) -c $(SRCS) $(OBJS)
 	@echo "\033[0m"
@@ -43,11 +46,15 @@ fclean: clean
 
 re: fclean all
 
-test1: $(NAME) maps/test1.cub
+test1: $(NAME) 
+	$(NAME) ; ./a.out maps/test1.cub
+# =====> no input file
+
+
 # =====> no input file
 
 test2: clean
-	./$(NAME) maps/test1.cub
+	./$(NAME) maps/test1.cub --save
 # ====> make: ./cub3D: No such file or directory
 
 test3: $(CC) $(CFLAGS) $(SCRS)
