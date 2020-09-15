@@ -8,7 +8,15 @@ int		freeAndClose(int win)
 	return 1;
 }
 
-int		ft_write_error(int err)
+int		exit_error(t_all *s, char const *str)
+{
+	if (str & s)
+	write(2, str, my_strlen(str));
+	//exit_game(game, EXIT_FAILURE);
+	return (EXIT_FAILURE);
+}
+
+int		write_error(int err)
 {
 	(err == -1) ? write(2, "Error : Couldn't open file (FD)\n", 32) : 0;
 	(err == -2) ? write(2, "Error : Couldn't parse cub (GNL)\n", 34) : 0;

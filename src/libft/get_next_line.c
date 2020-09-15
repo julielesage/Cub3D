@@ -1,11 +1,11 @@
 #include "../../cub3d.h"
 
-int		ft_errorsofree(char *left)
+/*int		ft_errorsofree(char *left)
 {
 	if (left != NULL)
 		free(left);
 	return(-1);
-}
+}*/
 
 char	*new_line(char *left, char **line, int ret)
 {
@@ -36,13 +36,13 @@ int		my_get_next_line(int fd, char **line)
 	char		buf[4096];
 	int			ret;
 	if (fd > 10000 || fd < 0 || !line)
-		return(ft_write_error(-1));
+		return(write_errors(-1));
 	*line = NULL;
 	ret = 1;
 	while (ret > 0 && (my_strchr(left, '\n') == NULL))
 	{
 		if((ret = read(fd, buf, 4095)) < 0)
-			return (ft_errorsofree(left));
+			free(left);
 		buf[ret] = '\0';
 		left = my_str_join(left, buf);
 	}

@@ -25,8 +25,6 @@ OBJS: $(SRCS)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(SRCS)
-	@echo "\n Removing objects"
-	$(RM) *.o
 	@echo "\n\033[0;33mCompiling..."
 	$(CC)  $(CFLAGS) -c $(SRCS) $(OBJS)
 	@echo "\033[0m"

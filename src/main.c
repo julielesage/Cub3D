@@ -69,9 +69,32 @@
 
 #include "../cub3d.h"
 
-void	ft_init(char *cub, int save)
+void	declare_argv(t_all *s)
 {
-	t_all s;
+	t_map	map;
+
+	map.tab = NULL;
+	map.x = 0;
+	map.y = 0;
+	s.map = map;
+
+}
+
+void	init_game(char *cub, int save)
+{
+	t_all	s;
+	t_err	error;
+	t_win	win;
+
+//	win.ptr = NULL;
+	win.x = 0;
+	win.y = 0;
+	err.nbr = 0;
+//	err.m = 0;
+//	err.p = 0;
+	s.win = win;
+	s.err = err;
+	declare_argv(s);
 	if (save == 1)
 		write(1,"saved\n", 6);
 	else
