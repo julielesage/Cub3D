@@ -5,9 +5,18 @@ int		verify_line(t_all *s, char *line)
 	int	i;
 
 	i = 0;
+	write(1, "verify\n", 7);
 	skip_spaces(line, &i);
 	if (line[i] == 'R' && line[i + 1] == ' ')
-		s->error.nbr = parse_resol(s, line, &i);
+		s->error.nbr = parse_resolution(s, line, &i);
+	else if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
+		s->error.nbr = parse_texture(s, &s->texture.n, line, &i);
+	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
+		s->error.nbr = parse_texture(s, &s->texture.s, line, &i);
+	else if (line[i] == 'W' && line[i+1] == 'E' && line[i + 2] == ' ')
+		s->error.nbr = parse_texture(s, &s->texture.w, line, &i);
+	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i+ 2] == ' ')
+		s->error.nbr = parse_texture(s, &s->texture.e, line, &i);
 	else if (line[i] == '1')
 		s->error.nbr = parse_map(s, line, &i);
 	(s->error.nbr < 0 ) ? write_errors(s->error.nbr) : 0;
@@ -54,7 +63,7 @@ int		ft_parse_cub(t_all *s, char *cub)
 		return (write_errors(-1));
 	while ((ret = my_get_next_line(fd, &line)) > 0)
 	{
-		printf("line = %s\n", line);
+		printf("line = res %s\n", line);
         if (verify_line(s, line) == -1)
 			ret = -1;
 		free(line);

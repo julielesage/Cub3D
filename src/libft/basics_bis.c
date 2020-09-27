@@ -5,7 +5,7 @@ int		my_atoi(char *str, int *i)
 	int	value;
 
 	value = 0;
-	skip_spaces(str, &i);
+	skip_spaces(str, i);
 	while (str[*i] >= '0' && str[*i] <= '9')
 	{
 		value = value * 10 + (str[*i] - 48);
