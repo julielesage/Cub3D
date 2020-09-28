@@ -14,8 +14,8 @@ CC = clang
 
 # Optimization level 3 / O is a letter !!!!
 CFLAGS = -O3 -Wall -Wextra -Werror
-INC = -I $(MLX-DIR) -I $(HEADER)
-#LIBS = -L $(MLX_LNK) -lm
+INC = -I minilibx_opengl -I cub3d.h
+LIBS = $(MLX_LNK) -lm
 
 #ifeq ($(OS), Linux)
 #	MLX_DIR	= minilibx-linux
@@ -37,7 +37,7 @@ SRCS = src/cub3d.c \
 		src/libft/get_next_line.c \
 		src/utils/errors.c \
 
-OBJS = $(SRCS.c=.o)
+OBJS = $(SRCS:.c=.o)
 
 #.c.o:
 #	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} ${INC}
@@ -54,10 +54,10 @@ mlx: $(MLX-DIR)
 #$(NAME): $(OBJS) $(SRCS)
 $(NAME): $(OBJS) mlx
 	@echo "\n\033[0;33mCompiling..."
-	$(CC)  $(CFLAGS) -o $(SRCS) $(OBJS) #------> work well without libX
+#	$(CC)  $(CFLAGS) -o $(SRCS) $(OBJS) #------> work well without libX
 #	$(CC) $(CFLAGS) -c $(SRCS) $(OBJS) $(INC) $(LIBS) #----> 'linker' input unused
-#	${CC} ${CFLAGS} ${INC} ${OBJS} ${LIBS} -o ${NAME} #---->cannot specify -o when multiple objects
-#	$(CC) $(CFLAGS) $(INC) $(OBJS) $(MLX_LNK) -o $(NAME) #---->cannot specify -o when generating multiple output files
+	${CC} ${CFLAGS} ${INC} ${OBJS} ${LIBS} -o ${NAME} #---->cannot specify -o when multiple objects
+#	$(CC) $(CFLAGS) $(INC) $(OBJS) $(MLX_LNK) -o $(NAME) 
 #	$(CC) $(CFLAGS) -I $(HEADER) $(OBJS) $(MLX_LNK) -o $(NAME) 
 #make test1 ----> Undefined symbols for architecture x86_64:
 #"_main", referenced from:

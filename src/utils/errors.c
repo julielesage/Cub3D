@@ -16,7 +16,7 @@ int		exit_error(t_all *s, char *str)
 	return (EXIT_FAILURE);
 }
 
-int		write_error(int err)
+int		write_errors(int err)
 {
 	(err == -1) ? write(2, "Error : Couldn't open file (FD)\n", 32) : 0;
 	(err == -2) ? write(2, "Error : Couldn't parse cub (GNL)\n", 34) : 0;

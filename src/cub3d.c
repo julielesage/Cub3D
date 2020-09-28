@@ -1,9 +1,9 @@
 #include "../cub3d.h"
 
-void	init_cub(t_all *s, char *cub, int save)
+void	init_cube(t_all *s, char *cub, int save)
 {
 	//s->....ptr = mlx_init();
-	if(ft_parse_cub(&s, cub) == 1)
+	if(ft_parse_cub(s, cub) == 1)
 	{
 		printf("mauvais parsing");
 		freeAndClose(0);
