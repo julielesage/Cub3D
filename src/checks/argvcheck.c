@@ -52,7 +52,7 @@ int		verify_line(t_all *s, char *line)
 	return (s->err.n < 0 ? ft_strerror(s->err.n) : 0);
 }*/
 
-int		ft_parse_cub(t_all *s, char *cub)
+int		parse_cub(t_all *s, char *cub)
 {
 	int		ret;
 	int		fd;
@@ -63,7 +63,7 @@ int		ft_parse_cub(t_all *s, char *cub)
 		return (write_errors(-1));
 	while ((ret = my_get_next_line(fd, &line)) > 0)
 	{
-		printf("line = res %s\n", line);
+		printf("line res = %s\n", line);
         if (verify_line(s, line) == -1)
 			ret = -1;
 		free(line);

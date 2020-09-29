@@ -82,7 +82,7 @@ void	init_cube(t_all *s, char *cub, int save);
 // checks
 int		verify_argvs(int argc, char **argv);
 int		extensionCheck(char *argv, char *ext);
-int		ft_parse_cub(t_all *s, char *cub);
+int		parse_cub(t_all *s, char *cub);
 int		parse_map(t_all *s, char *line, int *i);
 int		parse_resolution(t_all *s, char *str, int *i);
 int		parse_texture(t_all *s, unsigned int **addr, char *line, int *i);
@@ -104,6 +104,6 @@ int		my_atoi(char *str, int *i);
 // utils
 int		exit_errors(t_all *s, char *str);
 int		write_errors(int err);
-int		freeAndClose(int ret);
+int		free_and_close(int ret);
 
 #endif

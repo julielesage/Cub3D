@@ -1,6 +1,6 @@
 #include "../../cub3d.h"
 
-int		freeAndClose(int win)
+int		free_and_close(int win)
 {
 //free tous les s 
 	win = 0;

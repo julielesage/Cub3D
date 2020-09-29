@@ -3,10 +3,10 @@
 void	init_cube(t_all *s, char *cub, int save)
 {
 	//s->....ptr = mlx_init();
-	if(ft_parse_cub(s, cub) == 1)
+	if(parse_cub(s, cub) == 1)
 	{
 		printf("mauvais parsing");
-		freeAndClose(0);
+		free_and_close(0);
 	}
 	if(save == 1)
 		write(1, "saved\n", 7);

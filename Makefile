@@ -1,4 +1,4 @@
-NAME = cub3D
+NAME = Cub3D
 
 HEADER = cub3d.h
 
@@ -14,7 +14,7 @@ CC = clang
 
 # Optimization level 3 / O is a letter !!!!
 CFLAGS = -O3 -Wall -Wextra -Werror
-INC = -I minilibx_opengl -I cub3d.h
+#INC = -I minilibx_opengl
 LIBS = $(MLX_LNK) -lm
 
 #ifeq ($(OS), Linux)
@@ -39,11 +39,12 @@ SRCS = src/cub3d.c \
 
 OBJS = $(SRCS:.c=.o)
 
+#BIN = *.o
 #.c.o:
 #	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} ${INC}
 
 #OBJS: $(SRCS)
-#	$(CC) $(CFLAGS) $(SRCS) $(HEADER)
+#	$(CC) $(CFLAGS) $(SRCS)
 
 all: $(NAME)
 
@@ -52,13 +53,12 @@ mlx: $(MLX-DIR)
 	@make -C $(MLX_DIR)
 
 #$(NAME): $(OBJS) $(SRCS)
-$(NAME): $(OBJS) mlx
+$(NAME): $(SRCS) $(OBJS) mlx
 	@echo "\n\033[0;33mCompiling..."
 #	$(CC)  $(CFLAGS) -o $(SRCS) $(OBJS) #------> work well without libX
 #	$(CC) $(CFLAGS) -c $(SRCS) $(OBJS) $(INC) $(LIBS) #----> 'linker' input unused
-	${CC} ${CFLAGS} ${INC} ${OBJS} ${LIBS} -o ${NAME} #---->cannot specify -o when multiple objects
-#	$(CC) $(CFLAGS) $(INC) $(OBJS) $(MLX_LNK) -o $(NAME) 
-#	$(CC) $(CFLAGS) -I $(HEADER) $(OBJS) $(MLX_LNK) -o $(NAME) 
+	${CC} ${CFLAGS} ${OBJS} ${MLX_LNK} -o ${NAME}
+	#	$(CC) $(CFLAGS) -I $(HEADER) $(OBJS) $(MLX_LNK) -o $(NAME) 
 #make test1 ----> Undefined symbols for architecture x86_64:
 #"_main", referenced from:
 #implicit entry/start for main executable
@@ -96,12 +96,8 @@ fclean: clean
 
 re: fclean all
 
-test1: $(NAME) 
-	$(NAME) ; ./a.out maps/test1.cub
-# =====> no input file
 
 
-# =====> no input file
 
 test2: clean
 	./$(NAME) maps/test1.cub --save
