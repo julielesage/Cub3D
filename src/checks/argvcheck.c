@@ -23,8 +23,8 @@ int distribute_line(t_all *s, char *line)
 	else if (line[i] == 'C' && line[i + 1] == ' ')
 		s->error.nbr = get_color(&s->texture.c, line, &i);
 	else if (line[i] == '1' && line[i + 1] != '\0')
-		s->error.nbr = parse_map(s, line, &i);
-	if (s->error.nbr == 0 && line[i] != '\0')
+		s->error.nbr = parse_map(s, line);
+	if (s->error.nbr != 0 && line[i] != '\0')
 		return (write_errors(-10));
 	return (s->error.nbr < 0 ? write_errors(s->error.nbr) : 0);
 }
@@ -45,6 +45,8 @@ int parse_cub(t_all *s, char *cub)
 		free(line);
 		line = NULL;
 	}
+	if (distribute_line(s, line) == -1)
+		ret = -1;
 	free(line);
 	close(fd);
 	if (ret < 0)

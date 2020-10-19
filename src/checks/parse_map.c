@@ -1,33 +1,35 @@
 #include "../../cub3d.h"
 
-char *parse_line(t_all *s, char *line, int *i)
+char *parse_line(t_all *s, char *line)
 {
 	char *str;
 	int j;
+	int i;
 
 	j = 0;
+	i = 0;
 	if (!(str = (char *)malloc(sizeof(char) * (my_strlen(line) + 1))))
 		return (NULL);
-	while (line[*i] != '\0')
+	while (line[i] != '\0')
 	{
 
-		if (line[*i] != '0' && line[*i] != '1' && line[*i] != ' ' && line[*i] != '2' && line[*i] != 'E' && line[*i] != 'W' && line[*i] != 'S' && line[*i] != 'N')
+		if (line[i] != '0' && line[i] != '1' && line[i] != ' ' && line[i] != '2' && line[i] != 'E' && line[i] != 'W' && line[i] != 'S' && line[i] != 'N')
 		{
 			free(str);
 			return (NULL);
 		}
-		else if (line[*i] == '2')
+		else if (line[i] == '2')
 			s->map.sprite++; // FR ca sert a quoi ?
-		str[j++] = line[*i];
-		(*i)++;
+		str[j++] = line[i];
+		i++;
 	}
 	str[j] = '\0';
 	if (my_strlen(str) > s->map.x)
-		s->map.x = my_strlen(str);
+		s->map.x = my_strlen(str) + 1;
 	return (str); //return a clean line and bigger length in map.x
 }
 
-int parse_map(t_all *s, char *line, int *i) // remplit la map tab ligne par ligne
+int parse_map(t_all *s, char *line) // remplit la map tab ligne par ligne
 {
 	char **tmp;
 	int j;
@@ -37,14 +39,14 @@ int parse_map(t_all *s, char *line, int *i) // remplit la map tab ligne par lign
 	// allocation for x strings, x = y resolution
 	if (!(tmp = malloc(sizeof(char *) * (s->map.y + 2))))
 		return (-11);
-	while (++j < s->map.y)																// 0 at first, then +1 each tour
-		tmp[j] = s->map.tab[j];															// copying map.tab if already half full
-	if ((tmp[s->map.y] = parse_line(s, line, i)) == NULL) // if last tmp line = got wrong data, otherwise = line
+	while (++j < s->map.y)														 // 0 at first, then +1 each tour
+		tmp[j] = s->map.tab[j];													 // copying map.tab if already half full
+	if ((tmp[s->map.y] = parse_line(s, line)) == NULL) // if last tmp line = got wrong data, otherwise = line
 	{
 		free(tmp);
 		return (-12);
 	}
-	printf("tmp[j] dans parse map apres parse line = %s\n", tmp[s->map.y]);
+	printf("tmp[j] dans parse map apres parse line j = %d : %s\n", j, tmp[s->map.y]);
 	tmp[s->map.y + 1] = NULL; //preparing next y
 	if (s->map.y > 0)
 		free(s->map.tab); // = free the old tmp

@@ -101,13 +101,13 @@ int verify_argvs(int argc, char **argv);
 int extensionCheck(char *argv, char *ext);
 int parse_cub(t_all *s, char *cub);
 int distribute_line(t_all *s, char *line);
-int parse_map(t_all *s, char *line, int *i);
-char *parse_line(t_all *s, char *line, int *i);
+int parse_map(t_all *s, char *line);
+char *parse_line(t_all *s, char *line);
 int line_length(t_all *s, char *line);
 int parse_resolution(t_all *s, char *str, int *i);
 int parse_texture(t_all *s, unsigned int **addr, char *line, int *i);
 int check_map_leaks(t_all *s);
-int check_line(char *str);
+int check_line(char *str, int j);
 int check_columns(t_all *s);
 int check_holes(char *str, int end);
 
