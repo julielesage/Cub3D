@@ -1,7 +1,12 @@
+R 1920 1080
+NO ./textures/bluestone.xpm
+SO ./textures/wood.xpm
+WE ./textures/bougainvilliers.xpm
+EA ./textures/greystone.xpm
 
-
-R 567 123
-NO ./ici
+S ./textures/pillar.xpm
+F 220,100,0
+C 225,30,0
 111111
 100101
 102001

@@ -1,22 +1,23 @@
 #include "../../cub3d.h"
 
-int		free_and_close(int win)
+int free_and_close(t_all *s, int win)
 {
-//free tous les s 
+	//free tous les s
+	free(s->map.tab);
 	win = 0;
 	exit(0);
 	return 1;
 }
 
-int		exit_error(t_all *s, char *str)
+int exit_error(t_all *s, char *str)
 {
 	if (str && s)
-	write(2, str, my_strlen(str));
+		write(2, str, my_strlen(str));
 	//exit_game(game, EXIT_FAILURE);
 	return (EXIT_FAILURE);
 }
 
-int		write_errors(int err)
+int write_errors(int err)
 {
 	(err == -1) ? write(2, "Error : Couldn't open file (FD)\n", 32) : 0;
 	(err == -2) ? write(2, "Error : Couldn't parse cub (GNL)\n", 34) : 0;

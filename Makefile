@@ -12,8 +12,8 @@ CC = clang
 #	CFLAGS	= -O3 -Wall -Wextra -Werror
 #	LIBS	= -L libft/ -lft ${MLX_LNK} -lm
 
-# Optimization level 3 / O is a letter !!!!
-CFLAGS = -O3 -Wall -Wextra -Werror
+# Optimization level 3 : O is a letter !!!!
+CFLAGS = -O3 -Wall -Wextra -Werror -g
 #INC = -I minilibx_opengl
 LIBS = $(MLX_LNK) -lm
 
@@ -32,10 +32,13 @@ MLX_LNK	= -L $(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 SRCS = src/cub3d.c \
 		src/checks/argvcheck.c \
 		src/checks/parse_map.c\
+		src/checks/check_map.c \
 		src/libft/basics.c \
 		src/libft/basics_bis.c\
 		src/libft/get_next_line.c \
 		src/utils/errors.c \
+		src/textures/xpm.c \
+		src/textures/colors.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -52,27 +55,9 @@ mlx: $(MLX-DIR)
 	@echo "\033[34m-= Making libX.a... =-"
 	@make -C $(MLX_DIR)
 
-#$(NAME): $(OBJS) $(SRCS)
 $(NAME): $(SRCS) $(OBJS) mlx
 	@echo "\n\033[0;33mCompiling..."
-#	$(CC)  $(CFLAGS) -o $(SRCS) $(OBJS) #------> work well without libX
-#	$(CC) $(CFLAGS) -c $(SRCS) $(OBJS) $(INC) $(LIBS) #----> 'linker' input unused
 	${CC} ${CFLAGS} ${OBJS} ${MLX_LNK} -o ${NAME}
-	#	$(CC) $(CFLAGS) -I $(HEADER) $(OBJS) $(MLX_LNK) -o $(NAME) 
-#make test1 ----> Undefined symbols for architecture x86_64:
-#"_main", referenced from:
-#implicit entry/start for main executable
-#ld: symbul(s) not found for architecture x86_64 
-#linker command failed
-#"make" ----> no compile mlx implicit declaration mlx_init 
-
-#	$(CC) $(CFLAGS) -c -I $(HEADER) -I $(MLX_DIR) $(OBJS) $(MLX_LNK) -o $(NAME)
-#	----> make test1 : linker input unused
-#	---> make : no compile mlx
-
-#	$(CC) $(CFLAGS) $(INC) $(OBJS) $(LIBS) $(NAME) #------->no such file or directory: 'cub3D'
-#	$(CC) $(CFLAGS) $(INC) $(OBJS) $(LIBS) -c $(NAME) #-------> no such cub3D file
-#	${CC} ${CFLAGS} ${INC} ${LIBS} -o ${NAME} #------> cannot specify -o when generating multiple output files
 	@echo "\033[32m   ______      __   _____ ____  "
 	@echo "\033[32m  / ____/_  __/ /_ |__  // __ \ "
 	@echo "\033[32m / /   / / / / __ \ /_ </ / / / "
@@ -95,16 +80,6 @@ fclean: clean
 	@echo "\033[0m"
 
 re: fclean all
-
-
-
-
-test2: clean
-	./$(NAME) maps/test1.cub --save
-# ====> make: ./cub3D: No such file or directory
-
-test3: $(CC) $(CFLAGS) $(SCRS)
-# ====> No rule to make target `clang', needed by `test3'.  Stop.
 
 # sqr: re
 # 	./$(NAME) maps/sqr.cub

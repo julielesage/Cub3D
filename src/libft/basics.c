@@ -1,9 +1,9 @@
 #include "../../cub3d.h"
 
-char	*my_strndup(char *s1, int n)
+char *my_strndup(char *s1, int n)
 {
-	int		i;
-	char	*copy;
+	int i;
+	char *copy;
 
 	i = 0;
 	if (!(copy = (char *)malloc(n + 1 * sizeof(char))))
@@ -17,12 +17,12 @@ char	*my_strndup(char *s1, int n)
 	return copy;
 }
 
-char	*my_str_join(char *s1, char *s2)
+char *my_str_join(char *s1, char *s2)
 {
-	char	*dst;
-	size_t	i;
-	size_t	j;
-	size_t	totalsize;
+	char *dst;
+	size_t i;
+	size_t j;
+	size_t totalsize;
 
 	i = 0;
 	j = 0;
@@ -44,9 +44,9 @@ char	*my_str_join(char *s1, char *s2)
 	return dst;
 }
 
-char	*my_strchr(char *left, char c)
+char *my_strchr(char *left, char c)
 {
-	int		i;
+	int i;
 
 	i = 0;
 	if (left == NULL)
@@ -55,32 +55,33 @@ char	*my_strchr(char *left, char c)
 	{
 		if (left[i] == c)
 			return (&left[i + 1]);
-		else i++;
+		else
+			i++;
 	}
 	if (c == '\0')
 		return (&left[i]);
 	return NULL;
 }
 
-int		my_strcmp(char *s1, char *s2)
+int my_strcmp(char *s1, char *s2)
 {
-  if (s1 && s2)
-  {
-    while (*s1 == *s2 && *s1 && *s2)
-    {
-      s1++;
-      s2++;
-    }
-  }
-  else
-    return (1);
-  return (*s1 - *s2);
+	if (s1 && s2)
+	{
+		while (*s1 == *s2 && *s1 && *s2)
+		{
+			s1++;
+			s2++;
+		}
+	}
+	else
+		return (1);
+	return (*s1 - *s2);
 }
 
-size_t	my_strlen(char *str)
+int my_strlen(char *str)
 {
-	size_t	count;
-	int		i;
+	int count;
+	int i;
 
 	count = 0;
 	i = 0;
