@@ -1,19 +1,54 @@
 #include "../../cub3d.h"
 
-int free_and_close(t_all *s, int win)
+void free_textures(t_all *s)
 {
-	//free tous les s
-	free(s->map.tab);
-	win = 0;
-	exit(0);
-	return 1;
+	free(s->texture.n);
+	free(s->texture.s);
+	free(s->texture.e);
+	free(s->texture.w);
+	free(s->texture.spr);
 }
+
+// 	exit(0);
+// 	return (1);
+// }
+// se referer a exit error
+void free_and_close(t_all *s, int window)
+{ //free tous les s malloc
+	int j;
+
+	j = 0;
+	while (j < s->map.y)
+		free(s->map.tab[j++]);
+	free(s->map.tab);
+	free_textures(s);
+	if (window == 1)
+		mlx_destroy_window(s->mlx.ptr, s->window.ptr);
+	free(s->mlx.ptr);
+	exit(window);
+}
+
+// int exit_game(t_all *s, int code)
+// {
+// 	//clear_config(&s);
+// 	// int i;
+
+// 	// i = 0;
+// 	// while (i < s->map.y)
+// 	// 	free(s->map.tab[i]);
+// 	// free(s->map.tab);
+// 	clear_window(&s, &s->window);
+// 	clear_textures(&s);
+// 	clear_sprites(&s->sprite);
+// 	exit(code);		 // ou (0) ?
+// 	return (code); // besoin ?
+// }
 
 int exit_error(t_all *s, char *str)
 {
 	if (str && s)
 		write(2, str, my_strlen(str));
-	//exit_game(game, EXIT_FAILURE);
+	free_and_close(s, EXIT_FAILURE);
 	return (EXIT_FAILURE);
 }
 

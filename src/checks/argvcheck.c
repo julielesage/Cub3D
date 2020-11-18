@@ -51,7 +51,9 @@ int parse_cub(t_all *s, char *cub)
 	close(fd);
 	if (ret < 0)
 		return (write_errors(-2));
+	get_position(s);
 	return (0);
+	// return (ft_parcheck(s));
 }
 
 int extensionCheck(char *argv, char *ext)

@@ -33,12 +33,18 @@ SRCS = src/cub3d.c \
 		src/checks/argvcheck.c \
 		src/checks/parse_map.c\
 		src/checks/check_map.c \
+		src/checks/sprite_and_lastchecks.c\
 		src/libft/basics.c \
 		src/libft/basics_bis.c\
 		src/libft/get_next_line.c \
 		src/utils/errors.c \
+		src/textures/bitmap.c \
 		src/textures/xpm.c \
 		src/textures/colors.c \
+		src/textures/sprite.c \
+		src/raycasting/screen.c \
+		src/raycasting/raycasting.c \
+
 
 OBJS = $(SRCS:.c=.o)
 
