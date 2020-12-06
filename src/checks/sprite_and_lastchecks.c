@@ -5,9 +5,9 @@ int parse_sprite(t_all *s)
   int i;
   int j;
   int k;
-  printf("parsing sprite");
+  //printf("parsing sprite");
   if (s->sprite)
-    s->sprite = NULL;
+    s->sprite = NULL; // on refait la liste des sprites si on en a attrapé un
   if (!(s->sprite = malloc(sizeof(t_spr) * s->map.nbspr)))
     return (-1);
   i = 0;
@@ -31,7 +31,7 @@ int parse_sprite(t_all *s)
 
 int last_checks(t_all *s)
 {
-  printf("last checks");
+  //printf("last checks");
   if (s->window.x <= 0 || s->window.y <= 0)
     return (write_errors(-14));
   else if ((s->texture.n == NULL || s->texture.s == NULL || s->texture.e == NULL) || (s->texture.w == NULL || s->texture.spr == NULL))

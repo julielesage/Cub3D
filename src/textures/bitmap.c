@@ -69,24 +69,23 @@ void bm_header(t_all *s, int fd)
 
 int make_bitmap(t_all *s)
 {
-  // 	t_ray	ray;
-  // t_hit	hit;
+  t_ray ray;
+  t_hit hit;
 
-  // ray.x = 0;
-  // ray.y = 0;
-  // ray.i = 0;
-  // ray.v = 0;
-  // ray.w = 0;
-  // hit.x = 0;
-  // hit.y = 0;
-  // hit.d = 0;
-  // s->ray = ray;
-  // s->hit = hit;
+  ray.x = 0;
+  ray.y = 0;
+  ray.i = 0;
+  ray.ver = 0;
+  ray.hor = 0;
+  hit.x = 0;
+  hit.y = 0;
+  hit.distance = 0;
+  s->ray = ray;
+  s->hit = hit;
   int fd;
 
   build_screen(s);
-  fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-  printf("screen ok");
+  fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU); //  create, write only, read permission bit
   bm_header(s, fd);
   bm_infos(s, fd);
   bm_data(s, fd);

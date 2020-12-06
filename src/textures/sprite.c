@@ -6,7 +6,7 @@ unsigned int pixelize_spr(t_all *s, int index, unsigned int color)
 	int r;
 	int g;
 	int b;
-	printf("pixelizing sprite\n");
+	//printf("pixelizing sprite\n index = %d\n", index);
 	if (color >= NONE)
 		return (s->img.adr[index]);
 	else if (color < 256 * 256 * 256)
@@ -28,20 +28,18 @@ void draw_sprite(t_all *s, int loc, double dist)
 	int j;
 	unsigned int color;
 	double size;
-	printf("drawing sprite\n");
+	//printf("drawing sprite\n");
 	i = 0;
 	j = 0;
-	size = s->window.y / dist / 2;
-	loc = loc - size / 2;
+	size = s->window.y / dist / 2; // 1080 / 20.6 / 2																						// 26.19
+	loc = loc - size / 2;					 // 2913 - 13																							// 2899
 	while (i < size)
 	{
-		printf("loc = %d, i = %d, j = %d, size = %f, s->stock[loc + i].dis = %f , dist = %f\n", loc, i, j, size, s->stock[loc + i].dis, dist);
 		while ((loc + i >= 0 && loc + i < s->window.x) && (j < size && s->stock[loc + i].dis > dist))
 		{
 			color = 64 * floor(64 * (double)j / size) + (double)i / size * 64; //=case couleur texture
 			color = s->texture.spr[color];
 			index = loc + i + (s->window.y / 2 + j) * s->window.x;
-			printf("index = %d, le tout ** = %d\n", index, s->window.x * s->window.y);
 			if (index < s->window.x * s->window.y)
 				s->img.adr[index] = pixelize_spr(s, index, color);
 			j++;
@@ -54,7 +52,7 @@ void draw_sprite(t_all *s, int loc, double dist)
 void locate_sprite(t_all *s, double sprx, double spry, double sprdis)
 {
 	double angle;
-	printf("locating sprite\n");
+	//printf("locating sprite\n");
 	sprx = (sprx - s->pos.x) / sprdis; // remet à jour les coord en fonction de la position joueur
 	spry = (spry - s->pos.y) / sprdis;
 	if (spry <= 0)
@@ -81,7 +79,6 @@ void unsort_sprite(t_all *s) // range du plus loin au plus proche
 		j = i + 1;
 		while (j < s->map.nbspr)
 		{
-			printf("distance du sprite i = %d ==> %f\n", i, s->sprite[i].dis);
 			if (s->sprite[i].dis < s->sprite[j].dis) // si sprite est plus proche que sprite +1
 			{
 				temp = s->sprite[i];
@@ -98,7 +95,7 @@ void handle_sprite(t_all *s)
 {
 	int i;
 	double distance;
-	printf("handling sprite\n");
+	//printf("handling sprite\n");
 	distance = hypot(s->dir.x, s->dir.y); // renvoie la racine carrée de la somme des carrés de ses arguments direction
 	if (s->dir.y <= 0)
 		s->dir.angle = acos(s->dir.x / distance) * 180 / M_PI; // acos retourne l'angle dont le cosinus est le nombre spécifié

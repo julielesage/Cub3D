@@ -78,12 +78,12 @@ void isRay(t_all *s)
   s->ray.y /= distance;
 }
 
-void build_screen(t_all *s)
+void build_screen(t_all *s) // = ft_screen
 {
   int bpp; // bits per pixel
   int size_line;
   int endian;
-  printf("building screen\n");
+  //printf("building screen\n");
   s->img.ptr = mlx_new_image(s->mlx.ptr, s->window.x, s->window.y);
   // return a list of mlx.ptr->img.list + width + height + vertexes map + a buffer of (4*w*h) nb of 0
   s->img.adr = (unsigned int *)mlx_get_data_addr(s->img.ptr, &bpp, &size_line, &endian);
@@ -100,4 +100,5 @@ void build_screen(t_all *s)
     s->ray.i++;
   }
   handle_sprite(s);
+  write(1, "screen ok\n", 10);
 }

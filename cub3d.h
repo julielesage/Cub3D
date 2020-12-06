@@ -15,6 +15,20 @@
 #define SCROLL_UP 3
 #define SCROLL_DOWN 4
 
+#define ESC 53
+#define W 13
+#define S 1
+#define A 0
+#define D 2
+#define UP 126
+#define DOWN 125
+
+#define LEFT 123
+#define RIGHT 124
+
+#define TURN 0.05
+#define SPEED 15
+
 // player position
 typedef struct s_pos
 {
@@ -147,7 +161,7 @@ int line_length(t_all *s, char *line);
 int parse_resolution(t_all *s, char *str, int *i);
 int parse_texture(t_all *s, unsigned int **addr, char *line, int *i);
 int check_map_leaks(t_all *s);
-int check_line(char *str, int j);
+int check_line(char *str);
 int check_columns(t_all *s);
 int check_holes(char *str, int end);
 int parse_sprite(t_all *s);
@@ -182,14 +196,13 @@ int size_col(t_all *s);
 // libft
 int my_strcmp(char *s1, char *s2);
 int my_get_next_line(int fd, char **line);
-char ft_strchr(char *left, char c);
+char *my_strchr(char *left, char c);
 char *my_strndup(char *s1, int n);
 char *my_str_join(char *s1, char *s2);
 char *new_line(char *left, char **line, int ret);
 int ft_errorsofree(char *left);
 int my_strlen(char *str);
 char *my_substr(char *s1, unsigned int start, size_t len);
-char *my_strchr(char *left, char c);
 int skip_spaces(char *str, int *i);
 int my_atoi(char *str, int *i);
 
@@ -198,5 +211,12 @@ int exit_error(t_all *s, char *str);
 int write_errors(int err);
 void free_and_close(t_all *s, int win);
 void free_textures(t_all *s);
+
+// movements
+int key_functions(int key, void *arg);
+void moving(t_all *s, double c);
+void rotation(t_all *s, double c);
+void strafing(t_all *s, double c);
+void play(t_all *s);
 
 #endif

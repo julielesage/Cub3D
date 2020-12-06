@@ -44,6 +44,7 @@ SRCS = src/cub3d.c \
 		src/textures/sprite.c \
 		src/raycasting/screen.c \
 		src/raycasting/raycasting.c \
+		src/game/movements.c \
 
 
 OBJS = $(SRCS:.c=.o)
@@ -90,8 +91,8 @@ re: fclean all
 # sqr: re
 # 	./$(NAME) maps/sqr.cub
 
-# bmp: re
-# 	./$(NAME) maps/map.cub --save
+bmp: re
+	./$(NAME) maps/test3.cub --save
 
 # err: re
 # 	./$(NAME) maps/none

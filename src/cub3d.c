@@ -1,22 +1,5 @@
 #include "../cub3d.h"
 
-void declare_rays(t_all *s)
-{
-	t_ray ray;
-	t_hit hit;
-
-	ray.x = 0;
-	ray.y = 0;
-	ray.i = 0;
-	ray.ver = 0;
-	ray.hor = 0;
-	hit.x = 0;
-	hit.y = 0;
-	hit.distance = 0;
-	s->ray = ray;
-	s->hit = hit;
-}
-
 int init_cube(t_all *s, char *cub, int save)
 {
 	s->mlx.ptr = mlx_init();
@@ -24,19 +7,21 @@ int init_cube(t_all *s, char *cub, int save)
 	{
 		free_and_close(s, 0); // stop the game config
 	}
-	declare_rays(s);
 	if (save == 1)
 		return (make_bitmap(s));
-	build_screen(s);
-
-	// ft_rotate(&s, 1);
-	// ft_move(&s, 1);
-	// ft_rotate(&s, -1);
-	// ft_move(&s, -1);
-	// s.win.ptr = mlx_new_window(s.mlx.ptr, s.win.x, s.win.y, "cub3D");
-	// mlx_hook(s.win.ptr, 2, 0, ft_key, &s);
-	// mlx_hook(s.win.ptr, 17, 0, ft_close, &s);
-	// mlx_loop(s.mlx.ptr);
+	play(s);
+	write(1, "rotating\n", 9);
+	rotation(s, 1); // 2x pour détruire un sprite si trop près de la première position
+	write(1, "moving\n", 7);
+	moving(s, 1);
+	write(1, "rotating\n", 9);
+	rotation(s, -1);
+	write(1, "moving\n", 7);
+	moving(s, -1);
+	s->window.ptr = mlx_new_window(s->mlx.ptr, s->window.x, s->window.y, "Cub3D");
+	mlx_hook(s->window.ptr, 2, 0, key_functions, &s); //
+	mlx_hook(s->window.ptr, 17, 0, exit_error, &s);		// 17 = ctrl
+	mlx_loop(s->mlx.ptr);
 
 	return (1);
 }

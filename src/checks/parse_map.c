@@ -74,7 +74,7 @@ int parse_map(t_all *s, char *line) // remplit la map tab ligne par ligne
 		free(tmp);
 		return (-12);
 	}
-	printf("tmp[j] dans parse map apres parse line j = %d : %s\n", j, tmp[s->map.y]);
+	//printf("tmp[j] dans parse map apres parse line j = %d : %s\n", j, tmp[s->map.y]);
 	tmp[s->map.y + 1] = NULL; //preparing next y
 	if (s->map.y > 0)
 		free(s->map.tab); // = free the old tmp
@@ -103,7 +103,7 @@ int parse_texture(t_all *s, unsigned int **addr, char *line, int *i)
 	while (line[*i] != ' ' && line[*i] != '\0')
 		file[j++] = line[(*i)++]; //
 	file[j] = '\0';
-	printf("texture file : %s\n", file);
+	//printf("texture file : %s\n", file);
 	j = make_xpm(s, addr, file); // 0 ou moins si error
 	free(file);
 	return (j);

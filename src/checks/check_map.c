@@ -6,7 +6,7 @@ char *fill_map(char *str, int len)
   char *filled_str;
 
   i = 0;
-  printf("filling map ?");
+  //printf("filling map ?");
   if (!(filled_str = malloc(sizeof(char) * (len))))
     return NULL;
   i = 0;
@@ -22,7 +22,7 @@ char *fill_map(char *str, int len)
   }
   filled_str[len] = '\0'; // n° 7
   free(str);
-  printf("return : %s\n", filled_str);
+  //printf("return : %s\n", filled_str);
   return filled_str;
 }
 
@@ -31,13 +31,13 @@ int check_holes(char *str, int end)
   int i;
 
   i = 0;
-  printf("holes in %s ? \n", str);
-  printf("end : %d\n", end);
+  //printf("holes in %s ? \n", str);
+  //printf("end : %d\n", end);
   while (i < end)
   {
     if (str[i] == ' ')
     {
-      printf("i = %d, str[i] = %c, str[i-1] = %c\n", i, str[i], str[i - 1]);
+      //printf("i = %d, str[i] = %c, str[i-1] = %c\n", i, str[i], str[i - 1]);
       if (i != 0 && str[i - 1] != '1')
         return (-1);
       while (str[i] == ' ')
@@ -51,7 +51,7 @@ int check_holes(char *str, int end)
     }
     i++;
   }
-  printf("check holes ok\n");
+  //printf("check holes ok\n");
   return (0);
 }
 
@@ -73,24 +73,24 @@ int check_columns(t_all *s)
       j++;
     }
     str[j] = '\0';
-    printf("column = %s\n", str);
-    j = check_line(str, i);
+    //printf("column = %s\n", str);
+    j = check_line(str);
     free(str);
     if (j < 0)
       return (-1);
     i++;
   }
-  printf("check-columns ok\n");
+  //printf("check-columns ok\n");
   return (0);
 }
 
-int check_line(char *str, int j)
+int check_line(char *str)
 {
   int i;
   int k;
 
   i = 0;
-  printf("check line %d : %s\n", j, str);
+  //printf("check line %d : %s\n", j, str);
   // if str does not begin by 1 = error
   while (str[i] == ' ' && str[i] != '\0')
     i++;
@@ -98,16 +98,16 @@ int check_line(char *str, int j)
     return (-12);
   k = my_strlen(str) - 1;
   // if str does not end by 1 or have leaks = error
-  printf("k (my_strlen(str) - 1) = %d et ascii  = %d\n", k, (int)str[k]);
+  //printf("k (my_strlen(str) - 1) = %d et ascii  = %d\n", k, (int)str[k]);
   while (k > 0 && (str[k] == 32 || (int)str[k] < 0) && str[k] != '\0')
   {
-    printf("ascci de k = %d\n then minus k", (int)str[k]);
+    //printf("ascci de k = %d\n then minus k", (int)str[k]);
     k--;
   }
-  printf("str[first] at i=%d : %c et str[last] at k=%d : %c\n", i, str[i], k, str[k]);
+  //printf("str[first] at i=%d : %c et str[last] at k=%d : %c\n", i, str[i], k, str[k]);
   if (str[k] != '1' || (check_holes(&str[i], k + 1 - i) == -1))
     return (-12);
-  printf("check line ok, next\n");
+  //printf("check line ok, next\n");
   return (0);
 }
 
@@ -123,9 +123,9 @@ int check_map_leaks(t_all *s)
   while (j < s->map.y)
   {
     //printf("s->map.tab[j] line in check_map_leaks(s) : %s\n", s->map.tab[j]);
-    if (check_line(s->map.tab[j], j) == -12)
+    if (check_line(s->map.tab[j]) == -12)
       return (write_errors(-12));
-    printf("x = %d , strlen = %d\n", s->map.x, my_strlen(s->map.tab[j]));
+    //printf("x = %d , strlen = %d\n", s->map.x, my_strlen(s->map.tab[j]));
     j++;
   }
   if (check_columns(s) == -1)
