@@ -100,5 +100,4 @@ void build_screen(t_all *s) // = ft_screen
     s->ray.i++;
   }
   handle_sprite(s);
-  write(1, "screen ok\n", 10);
 }

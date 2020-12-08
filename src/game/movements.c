@@ -17,12 +17,11 @@ void play(t_all *s)
   s->hit = hit;
   build_screen(s);
   mlx_put_image_to_window(s->mlx.ptr, s->window.ptr, s->img.ptr, 0, 0);
-  write(1, "alo\n", 4);
   free(s->img.ptr);
   free(s->img.adr);
 }
 
-void strafing(t_all *s, double c) // = traverser les murs
+void sidesteping(t_all *s, double c) // = traverser les murs
 {
   s->pos.x -= c * (s->dir.y * SPEED / 100);
   if (s->map.tab[(int)floor(s->pos.y)][(int)floor(s->pos.x)] == '1')
@@ -42,14 +41,14 @@ int key_functions(int key, void *arg)
 {
   if (key == ESC)
     free_and_close(arg, 1);
-  else if (key == W) // avance
+  else if (key == W) // avance = Z sur azerty
     moving(arg, 1);
-  else if (key == A) // strafe = mitrailler  : collision traverser
-    strafing(arg, -1);
+  else if (key == A) // pas chassé vers la gauche
+    sidesteping(arg, -1);
   else if (key == S) // recule
     moving(arg, -1);
-  else if (key == D) //
-    strafing(arg, 1);
+  else if (key == D) // pas chassé vers la droite
+    sidesteping(arg, 1);
   else if (key == LEFT) // rotation vers la gauche
     rotation(arg, -1);
   else if (key == RIGHT) // rotation vers la droite

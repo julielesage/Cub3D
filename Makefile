@@ -13,7 +13,7 @@ CC = clang
 #	LIBS	= -L libft/ -lft ${MLX_LNK} -lm
 
 # Optimization level 3 : O is a letter !!!!
-CFLAGS = -O3 -Wall -Wextra -Werror -g
+CFLAGS = -O3 -Wall -Wextra -Werror -g -fsanitize=address
 #INC = -I minilibx_opengl
 LIBS = $(MLX_LNK) -lm
 

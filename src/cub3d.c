@@ -2,6 +2,10 @@
 
 int init_cube(t_all *s, char *cub, int save)
 {
+	t_pos pos;
+	pos.x = 0;
+	pos.y = 0;
+	s->pos = pos;
 	s->mlx.ptr = mlx_init();
 	if (parse_cub(s, cub) == -1 || check_map_leaks(s) == -1 || parse_sprite(s) == -1 || last_checks(s) == -1)
 	{
@@ -9,18 +13,14 @@ int init_cube(t_all *s, char *cub, int save)
 	}
 	if (save == 1)
 		return (make_bitmap(s));
-	play(s);
-	write(1, "rotating\n", 9);
 	rotation(s, 1); // 2x pour détruire un sprite si trop près de la première position
-	write(1, "moving\n", 7);
 	moving(s, 1);
-	write(1, "rotating\n", 9);
 	rotation(s, -1);
-	write(1, "moving\n", 7);
 	moving(s, -1);
 	s->window.ptr = mlx_new_window(s->mlx.ptr, s->window.x, s->window.y, "Cub3D");
-	mlx_hook(s->window.ptr, 2, 0, key_functions, &s); //
-	mlx_hook(s->window.ptr, 17, 0, exit_error, &s);		// 17 = ctrl
+	play(s);
+	mlx_hook(s->window.ptr, 2, 0, key_functions, s);
+	mlx_hook(s->window.ptr, 17, 0, exit_error, s); // 17 = ctrl
 	mlx_loop(s->mlx.ptr);
 
 	return (1);

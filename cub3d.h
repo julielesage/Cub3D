@@ -216,7 +216,7 @@ void free_textures(t_all *s);
 int key_functions(int key, void *arg);
 void moving(t_all *s, double c);
 void rotation(t_all *s, double c);
-void strafing(t_all *s, double c);
+void sidesteping(t_all *s, double c);
 void play(t_all *s);
 
 #endif
