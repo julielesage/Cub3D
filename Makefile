@@ -17,17 +17,6 @@ CFLAGS = -O3 -Wall -Wextra -Werror -g -fsanitize=address
 #INC = -I minilibx_opengl
 LIBS = $(MLX_LNK) -lm
 
-#ifeq ($(OS), Linux)
-#	MLX_DIR	= minilibx-linux
-#	MLX_LNK	= -L ${MLX_DIR} -lmlx -lXext -lX11 -lbsd
-#	SRCS	+=	srcs/events/mouse_bonus.c \
-#				srcs/parser/resolution_parser.c
-#else
-MLX_DIR	= minilibx_opengl
-MLX_LNK	= -L $(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-#	SRCS	+=	srcs/events/mouse_mac_bonus.c \
-#				srcs/parser/resolution_mac_parser.c
-#endif
 # B_HEADER = cub3d_bonus.h
 SRCS = src/cub3d.c \
 		src/checks/argvcheck.c \
@@ -46,6 +35,17 @@ SRCS = src/cub3d.c \
 		src/raycasting/raycasting.c \
 		src/game/movements.c \
 
+ifeq ($(OS), Linux)
+	MLX_DIR	= minilibx-linux
+	MLX_LNK	= -L ${MLX_DIR} -lmlx -lXext -lX11 -lbsd
+	SRCS	+=	src/linuxVsMac/linux.c \
+
+else
+	MLX_DIR	= minilibx_opengl
+	MLX_LNK	= -L $(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	SRCS	+=	src/linuxVsMac/mac.c \
+
+endif
 
 OBJS = $(SRCS:.c=.o)
 

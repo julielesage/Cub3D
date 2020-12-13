@@ -37,26 +37,6 @@ void sidesteping(t_all *s, double c) // = traverser les murs
   }
 }
 
-int key_functions(int key, void *arg)
-{
-  if (key == ESC)
-    free_and_close(arg, 1);
-  else if (key == W) // avance = Z sur azerty
-    moving(arg, 1);
-  else if (key == A) // pas chassé vers la gauche
-    sidesteping(arg, -1);
-  else if (key == S) // recule
-    moving(arg, -1);
-  else if (key == D) // pas chassé vers la droite
-    sidesteping(arg, 1);
-  else if (key == LEFT) // rotation vers la gauche
-    rotation(arg, -1);
-  else if (key == RIGHT) // rotation vers la droite
-    rotation(arg, 1);
-  play(arg);
-  return (1);
-}
-
 void moving(t_all *s, double c)
 {
   //position augmente avec la prise de direction x
