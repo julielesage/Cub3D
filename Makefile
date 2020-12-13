@@ -35,8 +35,9 @@ SRCS = src/cub3d.c \
 		src/raycasting/raycasting.c \
 		src/game/movements.c \
 
-ifeq ($(OS), Linux)
-	MLX_DIR	= minilibx-linux
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Linux)
+	MLX_DIR	= minilibx_linux
 	MLX_LNK	= -L ${MLX_DIR} -lmlx -lXext -lX11 -lbsd
 	SRCS	+=	src/linuxVsMac/linux.c \
 

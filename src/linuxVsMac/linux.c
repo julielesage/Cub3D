@@ -22,23 +22,6 @@ int key_functions(int key, void *arg)
 
 int parse_resolution(t_all *s, char *str, int *i)
 {
-  if (s->window.x != 0 || s->window.y != 0)
-    return (-3);
-  (*i)++;
-  s->window.x = my_atoi(str, i);
-  s->window.y = my_atoi(str, i);
-  if (s->window.x > 2560)
-    s->window.x = 2560;
-  if (s->window.y > 1400)
-    s->window.y = 1400;
-  skip_spaces(str, i);
-  if (s->window.x == 0 || s->window.y == 0 || str[*i] != '\0')
-    return -4;
-  return 0;
-};
-
-int parse_resolution(t_all *s, char *str, int *i)
-{
   int screenx_max;
   int screeny_max;
 
