@@ -2,6 +2,7 @@
 #define CUB3D_H
 
 #include "minilibx_opengl/mlx.h"
+#include "minilibx_linux/mlx.h"
 #include <unistd.h> //read
 #include <stdlib.h> //malloc
 #include <string.h> //gnl
@@ -34,6 +35,7 @@ typedef struct s_pos
 {
 	double x;
 	double y;
+	int moving;
 } t_pos;
 
 // camera position
@@ -213,7 +215,8 @@ void free_and_close(t_all *s, int win);
 void free_textures(t_all *s);
 
 // movements
-int key_functions(int key, void *arg);
+int key_functions(int key, t_all *s);
+int key_release(int key, t_all *s);
 void moving(t_all *s, double c);
 void rotation(t_all *s, double c);
 void sidesteping(t_all *s, double c);

@@ -2,23 +2,24 @@
 
 unsigned int pixelize_spr(t_all *s, int index, unsigned int color)
 {
-	int t;
-	int r;
-	int g;
-	int b;
+	// int t;
+	// int r;
+	// int g;
+	// int b;
 	//printf("pixelizing sprite\n index = %d\n", index);
-	if (color >= NONE)
+	if (color >= NONE || color == 0)
 		return (s->img.adr[index]);
-	else if (color < 256 * 256 * 256)
-		return (color);
-	t = color / (256 * 256 * 256);
-	r = (color / (256 * 256) % 256) * (1 - (double)t / 256);
-	g = (color / 256 % 256) * (1 - (double)t / 256);
-	b = (color % 256) * (1 - (double)t / 256);
-	r += (s->img.adr[index] / (256 * 256) % 256) * ((double)t / 256);
-	g += (s->img.adr[index] / 256 % 256) * ((double)t / 256);
-	b += (s->img.adr[index] % 256) * ((double)t / 256);
-	return (r * 256 * 256 + g * 256 + b);
+	return color;
+	// else if (color < 256 * 256 * 256)
+	// 	return (color);
+	// t = color / (256 * 256 * 256);
+	// r = (color / (256 * 256) % 256) * (1 - (double)t / 256);
+	// g = (color / 256 % 256) * (1 - (double)t / 256);
+	// b = (color % 256) * (1 - (double)t / 256);
+	// r += (s->img.adr[index] / (256 * 256) % 256) * ((double)t / 256);
+	// g += (s->img.adr[index] / 256 % 256) * ((double)t / 256);
+	// b += (s->img.adr[index] % 256) * ((double)t / 256);
+	// return (r * 256 * 256 + g * 256 + b);
 }
 
 void draw_sprite(t_all *s, int loc, double dist)

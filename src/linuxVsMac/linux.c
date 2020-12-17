@@ -1,22 +1,48 @@
 #include "../../cub3d.h"
 
-int key_functions(int key, void *arg)
+int key_functions(int key, t_all *s)
 {
   if (key == 65307)
-    free_and_close(arg, 1);
-  else if (key == 119 || key == 65362) // avance = Z sur azerty
-    moving(arg, 1);
-  else if (key == 97) // pas chassé vers la gauche
-    sidesteping(arg, -1);
-  else if (key == 115 || key == 65364) // recule
-    moving(arg, -1);
-  else if (key == 100) // pas chassé vers la droite
-    sidesteping(arg, 1);
-  else if (key == 65361) // rotation vers la gauche
-    rotation(arg, -1);
-  else if (key == 65363) // rotation vers la droite
-    rotation(arg, 1);
-  play(arg);
+    free_and_close(s, 1);
+  else if (key == 119 || key == 65362)
+  { // avance = Z sur azerty
+    s->pos.moving = 1;
+    moving(s, 1);
+  }
+  else if (key == 97)
+  { // pas chassé vers la gauche
+    s->pos.moving = 1;
+    sidesteping(s, -1);
+  }
+  else if (key == 115 || key == 65364)
+  { // recule
+    s->pos.moving = 1;
+    moving(s, -1);
+  }
+  else if (key == 100)
+  { // pas chassé vers la droite
+    s->pos.moving = 1;
+    sidesteping(s, 1);
+  }
+  else if (key == 65361)
+  { // rotation vers la gauche
+    s->pos.moving = 1;
+    rotation(s, -1);
+  }
+  else if (key == 65363)
+  { // rotation vers la droite
+    s->pos.moving = 1;
+    rotation(s, 1);
+  }
+  play(s);
+  return (1);
+};
+
+int key_release(int key, t_all *s)
+{
+  if (key == 119 || key == 65362 || key == 97 || key == 115 || key == 65364 || key == 100 || key == 65361 || key == 65363) // avance = Z sur azerty
+    s->pos.moving = 0;
+  play(s);
   return (1);
 };
 

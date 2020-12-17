@@ -38,7 +38,7 @@ SRCS = src/cub3d.c \
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Linux)
 	MLX_DIR	= minilibx_linux
-	MLX_LNK	= -L ${MLX_DIR} -lmlx -lXext -lX11 -lbsd
+	MLX_LNK	= -L ${MLX_DIR} -lmlx -lm -lXext -lX11 -lbsd
 	SRCS	+=	src/linuxVsMac/linux.c \
 
 else

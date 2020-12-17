@@ -19,8 +19,11 @@ int init_cube(t_all *s, char *cub, int save)
 	moving(s, -1);
 	s->window.ptr = mlx_new_window(s->mlx.ptr, s->window.x, s->window.y, "Cub3D");
 	play(s);
-	mlx_hook(s->window.ptr, 2, 0, key_functions, s);
-	mlx_hook(s->window.ptr, 17, 0, exit_error, s); // 17 = ctrl
+	// 1L est le masque nécessaire pour Linux, focking Linux
+	mlx_hook(s->window.ptr, 2, 1L << 0, key_functions, s);
+	mlx_hook(s->window.ptr, 3, 1L << 0, key_release, s);
+	mlx_hook(s->window.ptr, 17, 1L << 17, exit_error, s); // 17 = ctrl
+	mlx_loop_hook(s->mlx.ptr, loop_game, s);
 	mlx_loop(s->mlx.ptr);
 
 	return (1);
