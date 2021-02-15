@@ -5,4 +5,4 @@ explication sur le ray-casting : https://zestedesavoir.com/articles/153/comment-
 Projet Linux,
 après avoir cloné le repo, dans le fichier taper la commande "make" puis ./cub3D maps/<la map que vous voulez tester>.   
   
-<img source="./Capture.png" width=300 />
+<img src="./Capture.png" width="300" />
