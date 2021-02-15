@@ -1,9 +1,9 @@
 R 2561 1400
 NO ./textures/bluestone.xpm
 SO ./textures/wood.xpm
-WE ./textures/bougainvilliers.xpm
+WE ./textures/Bougainvilliers.xpm
 EA ./textures/greystone.xpm
-
+ici c'est pourri
 S ./textures/pillar.xpm
 F 220,100,0
 C 225,30,0

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   basics_bis.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlesage <jlesage@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/11 16:03:42 by jlesage           #+#    #+#             */
+/*   Updated: 2021/01/20 21:59:53 by jlesage          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
 int		my_atoi(char *str, int *i)
@@ -11,7 +23,7 @@ int		my_atoi(char *str, int *i)
 		value = value * 10 + (str[*i] - 48);
 		(*i)++;
 	}
-	return value;
+	return (value);
 }
 
 int		skip_spaces(char *str, int *i)
@@ -19,7 +31,7 @@ int		skip_spaces(char *str, int *i)
 	while (str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\v'
 		|| str[*i] == '\n' || str[*i] == '\r' || str[*i] == '\f')
 		(*i)++;
-	return 0;
+	return (0);
 }
 
 char	*my_substr(char *s1, unsigned int start, size_t len)
@@ -29,7 +41,8 @@ char	*my_substr(char *s1, unsigned int start, size_t len)
 
 	i = 0;
 	dst = NULL;
-	if (!s1) return NULL;
+	if (!s1)
+		return (NULL);
 	if (!(dst = (char *)malloc((len + 1) * sizeof(char))))
 		return (NULL);
 	while (s1[start] && i < len)
@@ -39,5 +52,5 @@ char	*my_substr(char *s1, unsigned int start, size_t len)
 		start++;
 	}
 	dst[i] = '\0';
-	return dst;
+	return (dst);
 }

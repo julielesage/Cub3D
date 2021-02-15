@@ -1,47 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprite.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlesage <jlesage@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/11 16:03:42 by jlesage           #+#    #+#             */
+/*   Updated: 2021/01/20 23:07:15 by jlesage          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
-unsigned int pixelize_spr(t_all *s, int index, unsigned int color)
+unsigned int	pixelize_spr(t_all *s, int index, unsigned int color)
 {
-	// int t;
-	// int r;
-	// int g;
-	// int b;
-	//printf("pixelizing sprite\n index = %d\n", index);
-	if (color >= NONE || color == 0)
+	if (color == 0)
 		return (s->img.adr[index]);
-	return color;
-	// else if (color < 256 * 256 * 256)
-	// 	return (color);
-	// t = color / (256 * 256 * 256);
-	// r = (color / (256 * 256) % 256) * (1 - (double)t / 256);
-	// g = (color / 256 % 256) * (1 - (double)t / 256);
-	// b = (color % 256) * (1 - (double)t / 256);
-	// r += (s->img.adr[index] / (256 * 256) % 256) * ((double)t / 256);
-	// g += (s->img.adr[index] / 256 % 256) * ((double)t / 256);
-	// b += (s->img.adr[index] % 256) * ((double)t / 256);
-	// return (r * 256 * 256 + g * 256 + b);
+	return (color);
 }
 
-void draw_sprite(t_all *s, int loc, double dist)
+void			draw_sprite(t_all *s, int loc, double dist)
 {
-	int index;
-	int i;
-	int j;
-	unsigned int color;
-	double size;
-	//printf("drawing sprite\n");
+	int				index;
+	int				i;
+	int				j;
+	unsigned int	color;
+	double			size;
+
 	i = 0;
 	j = 0;
-	size = s->window.y / dist / 2; // 1080 / 20.6 / 2																						// 26.19
-	loc = loc - size / 2;					 // 2913 - 13																							// 2899
+	size = s->win.y / dist / 2;
+	loc = loc - size / 2;
 	while (i < size)
 	{
-		while ((loc + i >= 0 && loc + i < s->window.x) && (j < size && s->stock[loc + i].dis > dist))
+		while ((loc + i >= 0 && loc + i < s->win.x) &&
+		(j < size && s->stock[loc + i].dis > dist))
 		{
-			color = 64 * floor(64 * (double)j / size) + (double)i / size * 64; //=case couleur texture
-			color = s->texture.spr[color];
-			index = loc + i + (s->window.y / 2 + j) * s->window.x;
-			if (index < s->window.x * s->window.y)
+			color = 64 * floor(64 * (double)j / size) + (double)i / size * 64;
+			color = s->texspr.adr[color];
+			index = loc + i + (s->win.y / 2 + j) * s->win.x;
+			if (index < s->win.x * s->win.y)
 				s->img.adr[index] = pixelize_spr(s, index, color);
 			j++;
 		}
@@ -50,29 +48,29 @@ void draw_sprite(t_all *s, int loc, double dist)
 	}
 }
 
-void locate_sprite(t_all *s, double sprx, double spry, double sprdis)
+void			locate_spr(t_all *s, double spx, double spy, double spdis)
 {
-	double angle;
-	//printf("locating sprite\n");
-	sprx = (sprx - s->pos.x) / sprdis; // remet à jour les coord en fonction de la position joueur
-	spry = (spry - s->pos.y) / sprdis;
-	if (spry <= 0)
-		angle = acos(sprx) * 180 / M_PI; // acos renvoie l'angle à partir d'un cosinus
+	double	angle;
+
+	spx = (spx - s->pos.x) / spdis;
+	spy = (spy - s->pos.y) / spdis;
+	if (spy <= 0)
+		angle = acos(spx) * 180 / M_PI;
 	else
-		angle = 360 - acos(sprx) * 180 / M_PI;
+		angle = 360 - acos(spx) * 180 / M_PI;
 	angle = s->dir.angle - angle + 33;
 	if (angle >= 180)
 		angle -= 360;
 	else if (angle <= -180)
 		angle += 360;
-	draw_sprite(s, angle * s->window.x / 66, sprdis);
+	draw_sprite(s, angle * s->win.x / 66, spdis);
 }
 
-void unsort_sprite(t_all *s) // range du plus loin au plus proche
+void			unsort_sprite(t_all *s)
 {
-	t_spr temp;
-	int i;
-	int j;
+	t_spr	temp;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (i < s->map.nbspr - 1)
@@ -80,7 +78,7 @@ void unsort_sprite(t_all *s) // range du plus loin au plus proche
 		j = i + 1;
 		while (j < s->map.nbspr)
 		{
-			if (s->sprite[i].dis < s->sprite[j].dis) // si sprite est plus proche que sprite +1
+			if (s->sprite[i].dis < s->sprite[j].dis)
 			{
 				temp = s->sprite[i];
 				s->sprite[i] = s->sprite[j];
@@ -92,27 +90,28 @@ void unsort_sprite(t_all *s) // range du plus loin au plus proche
 	}
 }
 
-void handle_sprite(t_all *s)
+void			handle_sprite(t_all *s)
 {
-	int i;
-	double distance;
-	//printf("handling sprite\n");
-	distance = hypot(s->dir.x, s->dir.y); // renvoie la racine carrée de la somme des carrés de ses arguments direction
+	int			i;
+	double		distance;
+
+	distance = hypot(s->dir.x, s->dir.y);
 	if (s->dir.y <= 0)
-		s->dir.angle = acos(s->dir.x / distance) * 180 / M_PI; // acos retourne l'angle dont le cosinus est le nombre spécifié
+		s->dir.angle = acos(s->dir.x / distance) * 180 / M_PI;
 	else
 		s->dir.angle = 360 - acos(s->dir.x / distance) * 180 / M_PI;
 	i = 0;
 	while (i < s->map.nbspr)
 	{
-		s->sprite[i].dis = hypot(s->sprite[i].x - s->pos.x, s->sprite[i].y - s->pos.y); // renvoie la distance pour chaque sprite
+		s->sprite[i].dis = hypot(s->sprite[i].x - s->pos.x,
+		s->sprite[i].y - s->pos.y);
 		i++;
 	}
 	unsort_sprite(s);
 	i = 0;
 	while (i < s->map.nbspr)
 	{
-		locate_sprite(s, s->sprite[i].x, s->sprite[i].y, s->sprite[i].dis);
+		locate_spr(s, s->sprite[i].x, s->sprite[i].y, s->sprite[i].dis);
 		i++;
 	}
 	free(s->stock);

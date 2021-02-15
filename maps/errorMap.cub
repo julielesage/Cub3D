@@ -1,0 +1,15 @@
+R 2561 1400
+NO ./textures/bluestone.xpm
+SO ./textures/wood.xpm
+WE ./textures/Bougainvilliers.xpm
+EA ./textures/greystone.xpm
+
+S ./textures/pillar.xpm
+F 220,100,0
+C 225,30,0
+
+111111
+100100
+102001
+1100N1
+111111

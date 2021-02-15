@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   basics.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlesage <jlesage@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/11 16:03:42 by jlesage           #+#    #+#             */
+/*   Updated: 2021/01/20 21:53:08 by jlesage          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
-char *my_strndup(char *s1, int n)
+char	*my_strndup(char *s1, int n)
 {
-	int i;
-	char *copy;
+	int		i;
+	char	*copy;
 
 	i = 0;
 	if (!(copy = (char *)malloc(n + 1 * sizeof(char))))
@@ -14,15 +26,15 @@ char *my_strndup(char *s1, int n)
 		i++;
 	}
 	copy[i] = '\0';
-	return copy;
+	return (copy);
 }
 
-char *my_str_join(char *s1, char *s2)
+char	*my_str_join(char *s1, char *s2)
 {
-	char *dst;
-	size_t i;
-	size_t j;
-	size_t totalsize;
+	char	*dst;
+	size_t	i;
+	size_t	j;
+	size_t	totalsize;
 
 	i = 0;
 	j = 0;
@@ -41,12 +53,12 @@ char *my_str_join(char *s1, char *s2)
 		free(s1);
 	s1 = NULL;
 	s2 = NULL;
-	return dst;
+	return (dst);
 }
 
-char *my_strchr(char *left, char c)
+char	*my_strchr(char *left, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (left == NULL)
@@ -60,10 +72,10 @@ char *my_strchr(char *left, char c)
 	}
 	if (c == '\0')
 		return (&left[i]);
-	return NULL;
+	return (NULL);
 }
 
-int my_strcmp(char *s1, char *s2)
+int		my_strcmp(char *s1, char *s2)
 {
 	if (s1 && s2)
 	{
@@ -78,10 +90,10 @@ int my_strcmp(char *s1, char *s2)
 	return (*s1 - *s2);
 }
 
-int my_strlen(char *str)
+int		my_strlen(char *str)
 {
-	int count;
-	int i;
+	int	count;
+	int	i;
 
 	count = 0;
 	i = 0;

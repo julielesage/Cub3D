@@ -1,11 +1,16 @@
-#include "../../cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlesage <jlesage@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/11 16:03:42 by jlesage           #+#    #+#             */
+/*   Updated: 2021/01/20 22:00:58 by jlesage          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*int		ft_errorsofree(char *left)
-{
-	if (left != NULL)
-		free(left);
-	return(-1);
-}*/
+#include "../../cub3d.h"
 
 char	*new_line(char *left, char **line, int ret)
 {
@@ -15,12 +20,10 @@ char	*new_line(char *left, char **line, int ret)
 	i = 0;
 	dst = NULL;
 	if (left != NULL)
-	//create a line till a jump in *line
 	{
 		while (left[i] != '\n' && left[i] != '\0')
 			i++;
 		*line = my_strndup(left, i);
-	//keep left stock after jump into dst
 		if (ret > 0)
 			dst = my_substr(left, i + 1, (my_strlen(left) - i));
 	}
@@ -28,20 +31,19 @@ char	*new_line(char *left, char **line, int ret)
 	return (dst);
 }
 
-int		my_get_next_line(int fd, char **line)
+int		my_get_next_line(t_all *s, int fd, char **line)
 {
 	static char	*left;
-	// if static, left remain for next call
-	// if buf size given no need for malloc !!! BIM just do not forget to free
 	char		buf[4096];
 	int			ret;
-	if (fd > 10000 || fd < 0 || !line)
-		return(write_errors(-1));
+
+	if (fd > 10000 || fd < 0)
+		return (write_errors(s, -20));
 	*line = NULL;
 	ret = 1;
 	while (ret > 0 && (my_strchr(left, '\n') == NULL))
 	{
-		if((ret = read(fd, buf, 4095)) < 0)
+		if ((ret = read(fd, buf, 4095)) < 0)
 			free(left);
 		buf[ret] = '\0';
 		left = my_str_join(left, buf);
